@@ -10,7 +10,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 __karma__.loaded = function () { };
 
 // SET THE RUNTIME APPLICATION ROOT HERE
-var appRoot ='app'; // no trailing slash!
+var appRoot ='client'; // no trailing slash!
 
 // RegExp for client application base path within karma (which always starts 'base\')
 var karmaBase = '^\/base\/'; // RegEx string for base of karma folders

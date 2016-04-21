@@ -1,7 +1,7 @@
 module.exports = function(config) {
 
-  var appBase   = 'app/';      // transpiled app JS files
-  var appAssets = 'base/app/'; // component assets fetched by Angular's compiler
+  var appBase   = 'client/';      // transpiled app JS files
+  var appAssets = 'base/client/'; // component assets fetched by Angular's compiler
 
   config.set({
     basePath: '',
@@ -55,7 +55,7 @@ module.exports = function(config) {
     // proxied base paths for loading assets
     proxies: {
       // required for component assets fetched by Angular's compiler
-      "/app/": appAssets
+      "/client/": appAssets
     },
 
     exclude: [],
