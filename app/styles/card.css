@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid;
+  height: 4em;
+  width: 2.5em;
+  background-color: lightgrey;
+  text-align: center;
+  font-size: 2em;
+  line-height: 4em;
+}
+
+.card:hover {
+  background-color: white;
+  cursor: pointer;
+}
