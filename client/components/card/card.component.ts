@@ -10,8 +10,7 @@ export class CardComponent {
   @Input()
     card: Card;
 
-
   OnClick() {
-    
+
   }
 }
