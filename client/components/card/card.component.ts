@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from 'angular2/core';
+import { Card } from '../../classes/Card'
 
 @Component({
   selector: 'card',
@@ -7,5 +8,10 @@ import {Component, Input, OnInit} from 'angular2/core';
 })
 export class CardComponent {
   @Input()
-    cardName: string;
+    card: Card;
+
+
+  OnClick() {
+    
+  }
 }

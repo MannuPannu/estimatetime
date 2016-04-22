@@ -1,4 +1,6 @@
-export var CARDS: string[] = [
+import {Card} from '../classes/Card'
+
+var cardDeckValues = [
   "0",
   "1",
   "2",
@@ -11,3 +13,9 @@ export var CARDS: string[] = [
   "100",
   "?",
 ];
+
+for(let i = 0; i < cardDeckValues.length; i++){
+  CARDS.push(new Card(cardDeckValues[i]));
+}
+
+export var CARDS: Card[];
