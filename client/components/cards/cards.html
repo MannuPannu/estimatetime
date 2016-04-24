@@ -1,8 +1,19 @@
 
-<div *ngFor="#card of cards">
-  <card style="float: left; margin: 5px;" [card]="card" (cardClick)=cardClicked($event)>
-  </card>
+<br />
+<br />
+<a (click)="toggleCardVisibility()" href="#">{{ cardsVisible ? 'Hide' : 'Show' }}</a>
+<br />
+<br />
+
+<div *ngIf="cardsVisible">
+  <div *ngFor="#card of cards">
+    <card style="float: left; margin: 5px;" [card]="card" (cardClick)=cardClicked($event)>
+    </card>
+  </div>
 </div>
+
 <div style="clear: both">
-  Time selected {{ selectedTime }}
+Time selected
+  <card *ngIf="selectedCard" [card]="selectedCard">
+  </card>
 </div>

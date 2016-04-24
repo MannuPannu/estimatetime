@@ -12,6 +12,12 @@ export class CardsComponent {
     cards: Card[];
 
   selectedTime = "";
+  selectedCard: Card;
+  cardsVisible = true;
+
+  toggleCardVisibility(){
+    this.cardsVisible = !this.cardsVisible;
+  }
 
   cardClicked(card) {
     this.cards.forEach(card => {
@@ -22,5 +28,6 @@ export class CardsComponent {
     card.selected = true;
     this.selectedTime = card.timeInHours;
 
+    this.selectedCard = card;
   }
 }
