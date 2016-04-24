@@ -1,6 +1,8 @@
-<span>Cards component; This component is responsible for drawing the card deck and the cards logic</span>
 
 <div *ngFor="#card of cards">
-  <card style="float: left; margin: 5px;" [card]="card">
+  <card style="float: left; margin: 5px;" [card]="card" (cardClick)=cardClicked($event)>
   </card>
+</div>
+<div style="clear: both">
+  Time selected {{ selectedTime }}
 </div>

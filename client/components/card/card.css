@@ -1,5 +1,6 @@
 .card {
   border: 1px solid;
+  border-color: grey;
   height: 4em;
   width: 2.5em;
   background-color: lightgrey;
@@ -11,4 +12,11 @@
 .card:hover {
   background-color: white;
   cursor: pointer;
+}
+
+.card.selected {
+  border-color: green;
+  border: 1px solid green;
+  background-color: grey;
+  color: white;
 }

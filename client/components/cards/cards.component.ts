@@ -10,4 +10,17 @@ import {CardComponent} from '../card/card.component';
 export class CardsComponent {
   @Input()
     cards: Card[];
+
+  selectedTime = "";
+
+  cardClicked(card) {
+    this.cards.forEach(card => {
+      card.selected = false;
+    });
+
+    //Toggle selection
+    card.selected = true;
+    this.selectedTime = card.timeInHours;
+
+  }
 }

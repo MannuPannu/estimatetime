@@ -1,16 +1,19 @@
-import {Component, Input, OnInit} from 'angular2/core';
+import {Component, Input, Output, OnInit, EventEmitter} from 'angular2/core';
 import { Card } from '../../classes/Card'
 
 @Component({
   selector: 'card',
   templateUrl: 'client/components/card/card.html',
-  styleUrls: ['client/components/card/card.css']
+  styleUrls: ['client/components/card/card.css'],
 })
 export class CardComponent {
   @Input()
     card: Card;
 
-  OnClick() {
+  @Output()
+    cardClick = new EventEmitter();
 
+  onClick() {
+    this.cardClick.emit(this.card);
   }
 }
