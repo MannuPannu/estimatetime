@@ -1,19 +1,26 @@
 import {Component} from 'angular2/core';
-import {CardsComponent} from '../cards/cards.component';
-import {CardsService} from '../../services/cards.service';
-import {Card} from '../../classes/Card';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {CreateRoomComponent} from '../createroom/createroom.component'
+import {RoomComponent} from '../room/room.component'
 
 @Component({
     selector: 'my-app',
     templateUrl: 'client/components/app/app.html',
-    directives: [CardsComponent, CreateRoomComponent],
-    providers: [CardsService]
+    directives: [CreateRoomComponent, ROUTER_DIRECTIVES],
+    providers: [ROUTER_PROVIDERS]
 })
+@RouteConfig([
+  {
+    path: '/createroom',
+    name: 'Create or join room',
+    component: CreateRoomComponent,
+    useAsDefault: true
+  },
+  {
+    path: '/room/:id',
+    name: 'Room',
+    component: RoomComponent,
+  }
+])
 export class AppComponent {
-   cards: Card[];
-
-   constructor(private _cards: CardsService){
-     this.cards = this._cards.getCards();
-   }
  }
