@@ -9,6 +9,4 @@ Uses Angular 2
 3. npm start
 
 *** TODO ***
-- When card is selected, put that card in a "up for vote"-list, to show that
-  the person is voting
-- Add toggle hide button
+- Make two pages and add routing
