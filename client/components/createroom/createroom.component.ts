@@ -10,8 +10,8 @@ export class CreateRoomComponent {
 
     constructor(private _router: Router){}
 
-    gotoRoom() {
-     let link = ['Room', { id: 1 }];
-     this._router.navigate(link);
-   }
+    createRoom() {
+       let link = ['Room', { id: 1 }];
+       this._router.navigate(link);
+    }
  }
