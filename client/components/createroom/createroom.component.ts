@@ -11,7 +11,6 @@ export class CreateRoomComponent {
     constructor(private _router: Router){}
 
     gotoRoom() {
-      debugger;
      let link = ['Room', { id: 1 }];
      this._router.navigate(link);
    }

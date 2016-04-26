@@ -9,4 +9,4 @@ Uses Angular 2
 3. npm start
 
 *** TODO ***
-- Make two pages and add routing
+- Create server part for node and socketio
