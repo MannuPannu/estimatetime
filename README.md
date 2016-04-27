@@ -10,5 +10,5 @@ Uses Angular 2, Nodejs/express with socketio
 4. Goto http://localhost:8000
 
 *** TODO ***
-- Add possibility to join an existing room
+- Add possibility to join an existing room (even for room creator)
 - Refactor out some of the code from Hatjitsu on server side
