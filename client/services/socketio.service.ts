@@ -7,7 +7,10 @@ export class SocketService {
   socket: any;
 
     constructor(){
-      console.log("Constructed?");
-        var socket = io('http://localhost:8000');
+        this.socket = io();
+    }
+
+    createRoom(callBack: Function){
+      this.socket.emit('create room', {}, callBack);
     }
 }

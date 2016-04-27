@@ -6,6 +6,9 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
+var lobbyClass = require('./server/lib/lobby.js');
+var lobby = new lobbyClass.Lobby(io);
+
 server.listen(8000);
 
 io.set("origins", "*:*");
@@ -16,7 +19,12 @@ app.get('/[^\.]+$', function (req, res) {
 
 app.use("/", express.static(__dirname + "/"));
 
+//Socket io events
 io.on('connection', function (socket) {
   console.log("Connected");
-	socket.emit('foo', 42);
+
+  socket.on('create room', function (data, callback) {
+    var roomId = lobby.createRoom();
+    callback(roomId);
+  });
 });
