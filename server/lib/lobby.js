@@ -6,26 +6,6 @@ var Lobby = function(io) {
   this.rooms = {};
 };
 
-// Lobby.prototype.createRoom = function(roomUrl) {
-//   roomUrl = roomUrl === undefined ? this.createUniqueURL() : roomUrl + this.createUniqueURL();
-//
-//   if (this.rooms[roomUrl]) {
-//     this.createRoom(roomUrl);
-//   }
-//
-//   // remove any existing empty rooms first
-//   // var thatRooms = this.rooms;
-//   // _.each(this.rooms, function(room, key, rooms) {
-//   //   if (room.getClientCount() === 0) {
-//   //     delete thatRooms[key];
-//   //   }
-//   // });
-//
-//   this.rooms[roomUrl] = new RoomClass.Room(this.io, roomUrl);
-//
-//   return roomUrl;
-// };
-
 Lobby.prototype.createRoom = function() {
 
   //Create unique room id
@@ -39,6 +19,19 @@ Lobby.prototype.createRoom = function() {
   this.rooms[roomUrl] = new RoomClass.Room(this.io, roomUrl);
 
   return roomUrl;
+}
+
+Lobby.prototype.joinRoom = function(roomUrl, socket) {
+
+  var room = this.rooms[roomUrl];
+
+  if(room){
+    socket.join(roomUrl);
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 Lobby.prototype.createUniqueURL = function() {

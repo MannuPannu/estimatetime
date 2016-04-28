@@ -7,7 +7,6 @@ var Room = function(io, roomUrl) {
   this.createdAt = calcTime(2);
   this.createAdmin = true;
   this.hasAdmin = false;
-  this.cardPack = 'goat';
   this.connections = {}; // we collect the votes in here
   this.forcedReveal = false;
 };
@@ -31,6 +30,11 @@ function calcTime(offset) {
 
   // return time as a string
   return nd.toLocaleString();
+}
+
+Room.prototype.joinRoom = function(socket) {
+  
+
 }
 
 exports.Room = Room;

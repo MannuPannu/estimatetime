@@ -3,7 +3,7 @@
 Enter room number
 <br />
 <br />
-<input type="text" name="roomNumber" /><button type="button">Join room</button>
+<input type="text" #roomNumberInput /><button type="button" (click)="joinRoom(roomNumberInput.value)">Join room</button><span *ngIf="showRoomExistMessage">Room does not exist! Try again. </span>{{ showRoomExistMessage}}
 <br />
 <br />
 or

@@ -27,4 +27,10 @@ io.on('connection', function (socket) {
     var roomId = lobby.createRoom();
     callback(roomId);
   });
+
+  socket.on('join room', function(data, callback) {
+    var result = lobby.joinRoom(data.roomUrl, socket);
+
+    callback(result);
+  });
 });

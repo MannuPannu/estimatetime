@@ -13,4 +13,9 @@ export class SocketService {
     createRoom(callBack: Function){
       this.socket.emit('create room', {}, callBack);
     }
+
+    joinRoom(roomUrl: string, callBack: Function) {
+      debugger;
+      this.socket.emit('join room', { roomUrl: roomUrl}, callBack);
+    }
 }
