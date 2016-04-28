@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {CreateRoomComponent} from '../createroom/createroom.component'
 import {RoomComponent} from '../room/room.component'
@@ -23,6 +23,10 @@ import { SocketService } from '../../services/socketio.service';
     component: RoomComponent,
   }
 ])
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private socketService: SocketService){}
+
+  ngOnInit(){
+    this.socketService.connectToSocket();
+  }
  }

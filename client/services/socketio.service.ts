@@ -6,7 +6,7 @@ declare var io: any;
 export class SocketService {
   socket: any;
 
-    constructor(){
+    connectToSocket(){
         this.socket = io();
     }
 
@@ -15,7 +15,6 @@ export class SocketService {
     }
 
     joinRoom(roomUrl: string, callBack: Function) {
-      debugger;
       this.socket.emit('join room', { roomUrl: roomUrl}, callBack);
     }
 }

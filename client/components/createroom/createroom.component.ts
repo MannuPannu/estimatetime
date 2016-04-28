@@ -6,7 +6,6 @@ import { SocketService } from '../../services/socketio.service';
 @Component({
     selector: 'createroom',
     templateUrl: 'client/components/createroom/createroom.html',
-    providers: [SocketService]
 })
 export class CreateRoomComponent {
 
@@ -18,7 +17,6 @@ export class CreateRoomComponent {
                 }
 
     createRoom() {
-
       var router = this._router;
 
       this._socketService.createRoom(function (roomUrl) {
