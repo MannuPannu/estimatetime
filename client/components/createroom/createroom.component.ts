@@ -9,7 +9,7 @@ import { SocketService } from '../../services/socketio.service';
 })
 export class CreateRoomComponent {
 
-    showRoomExistMessage: boolean;
+    public showRoomExistMessage: boolean;
 
     constructor(private _router: Router,
                 private _socketService: SocketService){
@@ -26,18 +26,6 @@ export class CreateRoomComponent {
     }
 
     joinRoom(roomUrl) {
-      this.showRoomExistMessage = true;
-
-      //Make this a promise instead that the service returns :)
-
-      // this._socketService.joinRoom(roomUrl, function(result) {
-      //   if(result) { //Room exist!
-      //
-      //   }
-      //   else {
-      //     showRoomExistMessage = true;
-      //     //setTimeout(function() { showRoomExistMessage = false }, 4000);
-      //   }
-      // });
+      this._socketService.joinRoom(roomUrl).then(result => this.showRoomExistMessage = !result);
     }
  }

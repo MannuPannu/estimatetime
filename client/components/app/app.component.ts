@@ -7,13 +7,13 @@ import { SocketService } from '../../services/socketio.service';
 @Component({
     selector: 'my-app',
     templateUrl: 'client/components/app/app.html',
-    directives: [CreateRoomComponent, ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES],
     providers: [ROUTER_PROVIDERS, SocketService]
 })
 @RouteConfig([
   {
     path: '/createroom',
-    name: 'Create or join room',
+    name: 'Createroom',
     component: CreateRoomComponent,
     useAsDefault: true
   },

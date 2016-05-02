@@ -14,7 +14,10 @@ export class SocketService {
       this.socket.emit('create room', {}, callBack);
     }
 
-    joinRoom(roomUrl: string, callBack: Function) {
-      this.socket.emit('join room', { roomUrl: roomUrl}, callBack);
+    joinRoom(roomUrl: string) {
+      return new Promise<boolean>(resolve =>
+        this.socket.emit('join room', { roomUrl: roomUrl}, function(result) {
+          resolve(result);
+        }));
     }
 }
