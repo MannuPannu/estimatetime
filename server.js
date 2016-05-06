@@ -58,4 +58,9 @@ io.on('connection', function (socket) {
 
     callback(result);
   });
+
+  socket.on('room exist', function(data, callback) {
+    var result = lobby.roomExist(data.roomUrl);
+    callback(result);
+  });
 });

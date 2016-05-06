@@ -20,16 +20,16 @@ export class CreateRoomComponent {
       var that = this;
 
       that._socketService.createRoom(function (roomUrl) {
-        that.joinRoom(roomUrl);
+        that._router.navigate(['/room', roomUrl])
       });
     }
 
     joinRoom(roomUrl) {
-      this._socketService.joinRoom(roomUrl).then(result => this.afterJoin(result, roomUrl));
+      this._socketService.roomExist(roomUrl).then(result => this.afterRoomExistCheck(result, roomUrl));
     }
 
-    afterJoin(joinSucceeded, roomUrl){
-      if(joinSucceeded){
+    afterRoomExistCheck(roomExist, roomUrl){
+      if(roomExist){
         this._router.navigate(['/room', roomUrl])
       }
       else{

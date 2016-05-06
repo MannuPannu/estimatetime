@@ -27,4 +27,11 @@ export class SocketService {
           resolve(result);
         }));
     }
+
+    roomExist(roomUrl: string){
+      return new Promise<boolean>(resolve =>
+        this.socket.emit('room exist', { roomUrl: roomUrl}, function(result) {
+          resolve(result);
+        }));
+    }
 }

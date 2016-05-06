@@ -21,13 +21,24 @@ export class RoomComponent implements OnActivate {
               private _socketService: SocketService){}
 
   routerOnActivate(curr: RouteSegment): void {
-      this.roomId = curr.getParam('id');
+      var roomUrl = curr.getParam('id');
+      this.roomId = roomUrl;
+
+      this._socketService.joinRoom(roomUrl).then(result => this.afterJoin(result, roomUrl));
+  }
+
+  afterJoin(joinSucceeded, roomUrl){
+    if(joinSucceeded){
       this.cards = this._cards.getCards();
+    }
+    else {
+      this._router.navigate(['/createroom']);
+    }
   }
 
   leaveRoom(){
     var that = this;
-    this._socketService.leaveRoom(this.roomId.toString()).then(function(result) {
+    this._socketService.leaveRoom(this.roomId).then(function(result) {
       that._router.navigate(['/createroom']);
     });
   }

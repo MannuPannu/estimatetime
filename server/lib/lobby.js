@@ -47,6 +47,15 @@ Lobby.prototype.leaveRoom = function(roomUrl, socket) {
   }
 }
 
+Lobby.prototype.roomExist = function(roomUrl){
+  if(this.rooms[roomUrl]){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 Lobby.prototype.createUniqueURL = function() {
   var text = "", possible = "0123456789", i;
 
