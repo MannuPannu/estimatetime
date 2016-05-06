@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { Routes, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { Routes, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router';
 import {CreateRoomComponent} from '../createroom/createroom.component'
 import {RoomComponent} from '../room/room.component'
-import { SocketService } from '../../services/socketio.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
     selector: 'my-app',
@@ -16,6 +16,10 @@ import { SocketService } from '../../services/socketio.service';
     component: CreateRoomComponent,
   },
   {
+    path: '/',
+    component: CreateRoomComponent,
+  },
+  {
     path: '/room/:id',
     component: RoomComponent,
   }
@@ -26,6 +30,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     this.socketService.connectToSocket();
-    this.router.navigate(['/createroom']);
   }
  }

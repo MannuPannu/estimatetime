@@ -34,6 +34,19 @@ Lobby.prototype.joinRoom = function(roomUrl, socket) {
   }
 }
 
+Lobby.prototype.leaveRoom = function(roomUrl, socket) {
+
+  var room = this.rooms[roomUrl];
+
+  if(room){
+    socket.leave(roomUrl);
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 Lobby.prototype.createUniqueURL = function() {
   var text = "", possible = "0123456789", i;
 

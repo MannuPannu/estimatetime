@@ -1,7 +1,7 @@
 
 import {Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { SocketService } from '../../services/socketio.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
     selector: 'createroom',
@@ -9,23 +9,36 @@ import { SocketService } from '../../services/socketio.service';
 })
 export class CreateRoomComponent {
 
-    public showRoomExistMessage: boolean;
+    public showRoomDoesNotExistMessage: boolean;
 
     constructor(private _router: Router,
                 private _socketService: SocketService){
-                  this.showRoomExistMessage = false;
+                  this.showRoomDoesNotExistMessage = false;
                 }
 
     createRoom() {
-      var router = this._router;
+      var that = this;
 
-      this._socketService.createRoom(function (roomUrl) {
-        let link = ['/room',  roomUrl ];
-        router.navigate(link);
+      that._socketService.createRoom(function (roomUrl) {
+        that.joinRoom(roomUrl);
       });
     }
 
     joinRoom(roomUrl) {
-      this._socketService.joinRoom(roomUrl).then(result => this.showRoomExistMessage = !result);
+      this._socketService.joinRoom(roomUrl).then(result => this.afterJoin(result, roomUrl));
+    }
+
+    afterJoin(joinSucceeded, roomUrl){
+      if(joinSucceeded){
+        this._router.navigate(['/room', roomUrl])
+      }
+      else{
+        var that = this;
+        that.showRoomDoesNotExistMessage = true;
+
+        window.setTimeout(function() {
+          that.showRoomDoesNotExistMessage = false;
+        }, 2000);
+      }
     }
  }

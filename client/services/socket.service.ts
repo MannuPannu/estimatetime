@@ -20,4 +20,11 @@ export class SocketService {
           resolve(result);
         }));
     }
+
+    leaveRoom(roomUrl: string) {
+      return new Promise<boolean>(resolve =>
+        this.socket.emit('leave room', { roomUrl: roomUrl}, function(result) {
+          resolve(result);
+        }));
+    }
 }
