@@ -15,6 +15,7 @@ import {Card} from '../../classes/Card';
 export class RoomComponent implements OnActivate {
   cards: Card[];
   roomId: string;
+  isAdmin: boolean;
 
   constructor(private _cards: CardsService,
               private _router: Router,
@@ -27,9 +28,10 @@ export class RoomComponent implements OnActivate {
       this._socketService.joinRoom(roomUrl).then(result => this.afterJoin(result, roomUrl));
   }
 
-  afterJoin(joinSucceeded, roomUrl){
-    if(joinSucceeded){
+  afterJoin(result, roomUrl){
+    if(result.joinSucceeded){
       this.cards = this._cards.getCards();
+      this.isAdmin = result.isAdmin;
     }
     else {
       this._router.navigate(['/createroom']);

@@ -22,16 +22,16 @@ app.use("/", express.static(__dirname + "/"));
 //Socket io events
 io.on('connection', function (socket) {
   socket.on('create room', function (data, callback) {
-    var roomId = lobby.createRoom();
+    var roomId = lobby.createRoom(socket);
 
     console.log(lobby.rooms);
     callback(roomId);
   });
 
   socket.on('join room', function(data, callback) {
-    var result = lobby.joinRoom(data.roomUrl, socket);
+    var joinSucceeded = lobby.joinRoom(data.roomUrl, socket);
 
-    if(result){
+    if(joinSucceeded){
       console.log(socket.id + " has joined a room");
       io.in(data.roomUrl).clients(function(error, clients){
         console.log(clients);
@@ -40,7 +40,7 @@ io.on('connection', function (socket) {
       console.log("Someone tried to join a room that didnt exist");
     }
 
-    callback(result);
+    callback({joinSucceeded: joinSucceeded, isAdmin: lobby.isAdminForRoom(data.roomUrl, socket)});
   });
 
   socket.on('leave room', function(data, callback) {

@@ -1,19 +1,14 @@
 var _ = require('underscore')._;
 var util = require('util');
 
-var Room = function(io, roomUrl) {
-  this.io = io;
+var Room = function(socket, roomUrl) {
   this.roomUrl = roomUrl;
-  this.createdAt = calcTime(2);
-  this.createAdmin = true;
-  this.hasAdmin = false;
-  this.connections = {}; // we collect the votes in here
-  this.forcedReveal = false;
+  this.adminId = socket.id;
 };
 
-Room.prototype.getClientCount = function() {
-  return _.filter(this.connections, function(c) { return c.socketId }).length;
-}
+// Room.prototype.getClientCount = function() {
+//   return _.filter(this.connections, function(c) { return c.socketId }).length;
+// }
 
 function calcTime(offset) {
   // create Date object for current location
@@ -32,9 +27,8 @@ function calcTime(offset) {
   return nd.toLocaleString();
 }
 
-Room.prototype.joinRoom = function(socket) {
-  
-
+Room.prototype.isAdmin = function(socketId){
+  return this.adminId === socketId;
 }
 
 exports.Room = Room;
