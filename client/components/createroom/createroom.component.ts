@@ -1,6 +1,6 @@
 
-import {Component} from 'angular2/core';
-import { Router } from 'angular2/router';
+import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 import { SocketService } from '../../services/socketio.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class CreateRoomComponent {
       var router = this._router;
 
       this._socketService.createRoom(function (roomUrl) {
-        let link = ['Room', { id: roomUrl }];
+        let link = ['/room',  roomUrl ];
         router.navigate(link);
       });
     }

@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter} from 'angular2/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import { Card } from '../../classes/Card'
 
 @Component({

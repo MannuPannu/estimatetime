@@ -5,7 +5,7 @@
 <br />
 
 <div *ngIf="cardsVisible">
-  <div *ngFor="#card of cards">
+  <div *ngFor="let card of cards">
     <card style="float: left; margin: 5px;" [card]="card" (cardClick)=cardClicked($event)>
     </card>
   </div>

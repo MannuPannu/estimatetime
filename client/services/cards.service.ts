@@ -1,6 +1,6 @@
 
 import {CARDS} from './mock-cards'
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Card} from '../classes/Card'
 
 var cardDeckValues = [

@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import { RouteParams } from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import { OnActivate, Router, RouteSegment } from '@angular/router';
 
 import {CardsComponent} from '../cards/cards.component';
 import {CardsService} from '../../services/cards.service';
@@ -11,17 +11,16 @@ import {Card} from '../../classes/Card';
     directives: [CardsComponent],
     providers: [CardsService]
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnActivate {
   cards: Card[];
   roomId: number;
 
   constructor(private _cards: CardsService,
-              private _routeParams: RouteParams){
+              private _router: Router){}
 
-    this.cards = this._cards.getCards();
-  }
+  routerOnActivate(curr: RouteSegment): void {
+      this.roomId = +curr.getParam('id');
 
-  ngOnInit() {
-    this.roomId = +this._routeParams.get('id');
+      this.cards = this._cards.getCards();
   }
 }

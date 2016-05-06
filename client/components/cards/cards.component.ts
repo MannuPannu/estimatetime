@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {Card} from '../../classes/Card';
 import {CardComponent} from '../card/card.component';
 
@@ -20,6 +20,7 @@ export class CardsComponent {
   }
 
   cardClicked(card) {
+    
     this.cards.forEach(card => {
       card.selected = false;
     });
