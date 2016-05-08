@@ -27,6 +27,8 @@ Lobby.prototype.joinRoom = function(roomUrl, socket) {
 
   if(room){
     socket.join(roomUrl);
+    room.voteConnections.push({socketId: socket.id, voteValue: -1, voted: false })
+
     return true;
   }
   else {
@@ -40,6 +42,12 @@ Lobby.prototype.leaveRoom = function(roomUrl, socket) {
 
   if(room){
     socket.leave(roomUrl);
+    room.voteConnections = room.voteConnections.filter(function(e){
+                              return e.socketId !== socket.id;
+                            });
+
+    console.log(room.voteConnections);
+
     return true;
   }
   else {
@@ -65,6 +73,28 @@ Lobby.prototype.isAdminForRoom = function(roomUrl, socket){
   }
   else {
     return false;
+  }
+}
+
+Lobby.prototype.getVoteConnections = function(roomUrl) {
+  var room = this.rooms[roomUrl];
+
+  if(room) {
+    return room.voteConnections;
+  }
+  else {
+    return -1;
+  }
+}
+
+Lobby.prototype.getUserCountForRoom = function(roomUrl){
+  var room = this.rooms[roomUrl];
+
+  if(room) {
+    return room.userCount;
+  }
+  else {
+    return 0;
   }
 }
 

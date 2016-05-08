@@ -34,4 +34,10 @@ export class SocketService {
           resolve(result);
         }));
     }
+
+    onVoteUpdate(callback: Function) {
+      this.socket.on('vote connections update', function(data) {
+        callback(data.voteConnections);
+      });
+    }
 }

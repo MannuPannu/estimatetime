@@ -21,10 +21,12 @@ app.use("/", express.static(__dirname + "/"));
 
 //Socket io events
 io.on('connection', function (socket) {
+
+  var roomUrls = [];
+
   socket.on('create room', function (data, callback) {
     var roomId = lobby.createRoom(socket);
 
-    console.log(lobby.rooms);
     callback(roomId);
   });
 
@@ -32,13 +34,17 @@ io.on('connection', function (socket) {
     var joinSucceeded = lobby.joinRoom(data.roomUrl, socket);
 
     if(joinSucceeded){
-      console.log(socket.id + " has joined a room");
+      console.log(socket.id + " has joined a room " + data.roomUrl);
       io.in(data.roomUrl).clients(function(error, clients){
         console.log(clients);
       });
+
+      roomUrls.push(data.roomUrl);
     }else{
-      console.log("Someone tried to join a room that didnt exist");
+      console.log("Someone tried to join a room " + data.roomUrl + " that didnt exist");
     }
+
+    io.in(data.roomUrl).emit('vote connections update', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
 
     callback({joinSucceeded: joinSucceeded, isAdmin: lobby.isAdminForRoom(data.roomUrl, socket)});
   });
@@ -54,7 +60,11 @@ io.on('connection', function (socket) {
       io.in(data.roomUrl).clients(function(error, clients){
         console.log(clients);
       });
+
+      roomUrls = roomUrls.filter(function(roomUrl) { return roomUrl !== data.roomUrl;  });
     }
+
+    io.in(data.roomUrl).emit('vote connections update', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
 
     callback(result);
   });
@@ -62,5 +72,11 @@ io.on('connection', function (socket) {
   socket.on('room exist', function(data, callback) {
     var result = lobby.roomExist(data.roomUrl);
     callback(result);
+  });
+
+  socket.on('disconnect', function() {
+    for(var i = 0; i < roomUrls.length; i++){
+      lobby.leaveRoom(roomUrls[i], socket);
+    }
   });
 });

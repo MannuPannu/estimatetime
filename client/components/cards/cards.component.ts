@@ -10,6 +10,8 @@ import {CardComponent} from '../card/card.component';
 export class CardsComponent {
   @Input()
     cards: Card[];
+  @Input()
+    voteSlots: Card[];
 
   selectedTime = "";
   selectedCard: Card;
@@ -20,7 +22,7 @@ export class CardsComponent {
   }
 
   cardClicked(card) {
-    
+
     this.cards.forEach(card => {
       card.selected = false;
     });

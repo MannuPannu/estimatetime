@@ -4,6 +4,8 @@ var util = require('util');
 var Room = function(socket, roomUrl) {
   this.roomUrl = roomUrl;
   this.adminId = socket.id;
+  this.voteConnections = [];
+  this.revealVotes = false;
 };
 
 // Room.prototype.getClientCount = function() {

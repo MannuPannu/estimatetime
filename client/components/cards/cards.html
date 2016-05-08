@@ -11,8 +11,10 @@
   </div>
 </div>
 
+<!-- Display voting area -->
 <div style="clear: both">
-Time selected
-  <card *ngIf="selectedCard" [card]="selectedCard">
-  </card>
+  <div *ngFor="let voteSlot of voteSlots">
+    <card style="float: left; margin: 5px;" [card]="voteSlot">
+    </card>
+  </div>
 </div>

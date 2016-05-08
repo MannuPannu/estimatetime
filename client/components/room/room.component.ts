@@ -14,18 +14,26 @@ import {Card} from '../../classes/Card';
 })
 export class RoomComponent implements OnActivate {
   cards: Card[];
+  voteSlots: Card[];
   roomId: string;
   isAdmin: boolean;
+  userCount: number;
 
   constructor(private _cards: CardsService,
               private _router: Router,
               private _socketService: SocketService){}
 
   routerOnActivate(curr: RouteSegment): void {
-      var roomUrl = curr.getParam('id');
-      this.roomId = roomUrl;
+      var that = this;
 
-      this._socketService.joinRoom(roomUrl).then(result => this.afterJoin(result, roomUrl));
+      var roomUrl = curr.getParam('id');
+      that.roomId = roomUrl;
+
+      this._socketService.onVoteUpdate(function(voteConnections) {
+        that.voteSlots = that._cards.getVoteSlots(voteConnections);
+      });
+
+      that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));
   }
 
   afterJoin(result, roomUrl){

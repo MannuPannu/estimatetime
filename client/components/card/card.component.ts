@@ -7,6 +7,8 @@ import { Card } from '../../classes/Card'
   styleUrls: ['client/components/card/card.css'],
 })
 export class CardComponent {
+  notVoted
+
   @Input()
     card: Card;
 
