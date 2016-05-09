@@ -10,6 +10,12 @@ Uses Angular 2, Nodejs/express with socketio
 4. Goto http://localhost:8000
 
 *** TODO ***
-- Emit events when members votes on times
+- Add reveal option to server
+- Store admin info in session variable
+
+- Add clear votes flag for admin
+- Add force reveal button for admin
+- Add option to be a voter or skip it as admin
+
 - When there are no members left in a room, destroy it
 - Add debug flag on server

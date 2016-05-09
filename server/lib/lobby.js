@@ -27,7 +27,7 @@ Lobby.prototype.joinRoom = function(roomUrl, socket) {
 
   if(room){
     socket.join(roomUrl);
-    room.voteConnections.push({socketId: socket.id, voteValue: -1, voted: false })
+    room.voteConnections.push({socketId: socket.id, voteValue: -1, voted: false } );
 
     return true;
   }
@@ -64,11 +64,25 @@ Lobby.prototype.vote = function(timeInHours, roomUrl, socket){
       if(voteConnection.socketId === socket.id){
         voteConnection.voteValue = timeInHours;
         voteConnection.voted = true;
-
         break;
       }
     }
+
+    if(_.every(room.voteConnections, function(e) { return e.voted === true; }))
+    {
+      console.log("Everyone has voted, reveal room");
+      this.revealVotes(roomUrl);
+    }
   }
+}
+
+Lobby.prototype.revealVotes = function(roomUrl){
+
+    var room = this.rooms[roomUrl];
+
+    if(room){
+      room.revealVotes = true;
+    }
 }
 
 Lobby.prototype.roomExist = function(roomUrl){
@@ -96,7 +110,14 @@ Lobby.prototype.getVoteConnections = function(roomUrl) {
   var room = this.rooms[roomUrl];
 
   if(room) {
-    return room.voteConnections;
+    if(room.revealVotes){
+      console.log(room.voteConnections);
+      return room.voteConnections;
+    }
+    else{ //Remove vote time info
+      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return {socketId: v.socketId, votedValue: -1, voted: v.voted }; });
+      return voteConnectionsWithRemovedVotes;
+    }
   }
   else {
     return -1;

@@ -75,8 +75,14 @@ io.on('connection', function (socket) {
   });
 
   socket.on('vote', function(data) {
-    lobby.vote(data.timeInHours, data.roomUrl, socket);  
-    io.in(data.roomUrl).emit('vote connections update', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
+    lobby.vote(data.timeInHours, data.roomUrl, socket);
+    console.log(socket.id + " voted");
+    io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
+  });
+
+  socket.on('reveal', function(data){
+    lobby.revealVotes(data.roomUrl);
+    io.in(data.roomUrl).emit('reveal', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
   });
 
   socket.on('disconnect', function() {

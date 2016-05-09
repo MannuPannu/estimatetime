@@ -30,6 +30,7 @@ export class RoomComponent implements OnActivate {
       that.roomId = roomUrl;
 
       this._socketService.onVoteUpdate(function(voteConnections) {
+        debugger;
         that.voteConnections = voteConnections;
       });
 
