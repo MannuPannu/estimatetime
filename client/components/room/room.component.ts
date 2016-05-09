@@ -2,22 +2,22 @@ import {Component, OnInit} from '@angular/core';
 import { OnActivate, Router, RouteSegment } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 
-import {CardsComponent} from '../cards/cards.component';
+import {VotingAreaComponent} from '../votingarea/votingarea.component';
+import {VotingResultsAreaComponent} from '../votingresultsarea/votingresultsarea.component';
 import {CardsService} from '../../services/cards.service';
 import {Card} from '../../classes/Card';
 
 @Component({
     selector: 'room',
     templateUrl: 'client/components/room/room.html',
-    directives: [CardsComponent],
+    directives: [VotingAreaComponent, VotingResultsAreaComponent],
     providers: [CardsService]
 })
 export class RoomComponent implements OnActivate {
   cards: Card[];
-  voteSlots: Card[];
+  voteConnections: {};
   roomId: string;
   isAdmin: boolean;
-  userCount: number;
 
   constructor(private _cards: CardsService,
               private _router: Router,
@@ -30,7 +30,7 @@ export class RoomComponent implements OnActivate {
       that.roomId = roomUrl;
 
       this._socketService.onVoteUpdate(function(voteConnections) {
-        that.voteSlots = that._cards.getVoteSlots(voteConnections);
+        that.voteConnections = voteConnections; 
       });
 
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));

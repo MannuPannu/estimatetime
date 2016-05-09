@@ -1,3 +1,3 @@
-<div class="card" [class.selected]="card.selected" (click)="onClick()">
-    {{ card.timeInHours }}
+<div [ngClass]="{ card: card.selectable, voteSlot: !card.selectable }" [class.selected]="card.selected" (click)="onClick()">
+    {{ card.selectable ? card.timeInHours : ' ' }}
 </div>

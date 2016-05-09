@@ -16,6 +16,8 @@ export class CardComponent {
     cardClick = new EventEmitter();
 
   onClick() {
-    this.cardClick.emit(this.card);
+    if(this.card.timeInHours !== ''){
+      this.cardClick.emit(this.card);
+    }
   }
 }

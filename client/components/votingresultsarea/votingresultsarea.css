@@ -1,0 +1,7 @@
+.voteSlot {
+  border: 1px solid;
+  border-color: grey;
+  height: 4em;
+  width: 2.5em;
+  font-size: 2em;
+}

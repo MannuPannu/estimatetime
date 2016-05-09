@@ -3,15 +3,13 @@ import {Card} from '../../classes/Card';
 import {CardComponent} from '../card/card.component';
 
 @Component({
-  selector: 'cards',
-  templateUrl: 'client/components/cards/cards.html',
+  selector: 'votingarea',
+  templateUrl: 'client/components/votingarea/votingarea.html',
   directives: [CardComponent],
 })
-export class CardsComponent {
+export class VotingAreaComponent {
   @Input()
     cards: Card[];
-  @Input()
-    voteSlots: Card[];
 
   selectedTime = "";
   selectedCard: Card;

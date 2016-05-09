@@ -30,7 +30,7 @@ export class CardsService {
     return cards;
   }
 
-  getVoteSlots(voteConnections){
+  getVotingInfo(voteConnections){
     let voteSlots:Card[] = [];
 
     for(var i = 0; i < voteConnections.length; i++) {
@@ -41,6 +41,6 @@ export class CardsService {
 
       voteSlots.push(card);
     }
-    return voteSlots;
+    return voteConnections;
   }
 }
