@@ -46,12 +46,28 @@ Lobby.prototype.leaveRoom = function(roomUrl, socket) {
                               return e.socketId !== socket.id;
                             });
 
-    console.log(room.voteConnections);
-
     return true;
   }
   else {
     return false;
+  }
+}
+
+Lobby.prototype.vote = function(timeInHours, roomUrl, socket){
+
+  var room = this.rooms[roomUrl];
+
+  if(room){
+    for(var i = 0; i < room.voteConnections.length; i++){
+      var voteConnection = room.voteConnections[i];
+
+      if(voteConnection.socketId === socket.id){
+        voteConnection.voteValue = timeInHours;
+        voteConnection.voted = true;
+
+        break;
+      }
+    }
   }
 }
 

@@ -40,4 +40,8 @@ export class SocketService {
         callback(data.voteConnections);
       });
     }
+
+    vote(timeInHours: string, roomUrl: string) {
+        this.socket.emit('vote', { timeInHours: timeInHours, roomUrl: roomUrl});
+    }
 }

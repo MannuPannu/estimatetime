@@ -30,7 +30,7 @@ export class RoomComponent implements OnActivate {
       that.roomId = roomUrl;
 
       this._socketService.onVoteUpdate(function(voteConnections) {
-        that.voteConnections = voteConnections; 
+        that.voteConnections = voteConnections;
       });
 
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));

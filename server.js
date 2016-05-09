@@ -74,6 +74,11 @@ io.on('connection', function (socket) {
     callback(result);
   });
 
+  socket.on('vote', function(data) {
+    lobby.vote(data.timeInHours, data.roomUrl, socket);  
+    io.in(data.roomUrl).emit('vote connections update', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
+  });
+
   socket.on('disconnect', function() {
     for(var i = 0; i < roomUrls.length; i++){
       lobby.leaveRoom(roomUrls[i], socket);
