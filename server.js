@@ -75,16 +75,19 @@ io.on('connection', function (socket) {
   });
 
   socket.on('vote', function(data) {
-    lobby.vote(data.timeInHours, data.roomUrl, socket);
+    var voteSuccess = lobby.vote(data.timeInHours, data.roomUrl, socket);
     console.log(socket.id + " voted");
-    io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
+
+    if(voteSuccess){
+      io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
+    }
   });
 
   socket.on('reset votes', function(data) {
     var result = lobby.resetVotes(data.roomUrl);
 
     if(result) {
-      console.log("User has reset votes in room " + data.roomUrl);
+        console.log("User has reset votes in room " + data.roomUrl);
 
       io.in(data.roomUrl).emit('reset votes');
       io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });

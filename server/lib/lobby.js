@@ -57,13 +57,16 @@ Lobby.prototype.vote = function(timeInHours, roomUrl, socket){
 
   var room = this.rooms[roomUrl];
 
-  if(room){
+  var voteResult = false;
+
+  if(room && !room.revealVotes){
     for(var i = 0; i < room.voteConnections.length; i++){
       var voteConnection = room.voteConnections[i];
 
       if(voteConnection.socketId === socket.id){
         voteConnection.voteValue = timeInHours;
         voteConnection.voted = true;
+        voteResult = true;
         break;
       }
     }
@@ -74,6 +77,8 @@ Lobby.prototype.vote = function(timeInHours, roomUrl, socket){
       this.revealVotes(roomUrl);
     }
   }
+
+  return voteResult;
 }
 
 Lobby.prototype.revealVotes = function(roomUrl){
@@ -95,6 +100,8 @@ Lobby.prototype.resetVotes = function(roomUrl){
         room.voteConnections[i].voted = false;
         room.voteConnections[i].voteValue = -1;
       }
+
+      room.revealVotes = false;
 
       return true;
     }
