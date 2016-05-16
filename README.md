@@ -19,3 +19,4 @@ Uses Angular 2, Nodejs/express with socketio
 
 - When there are no members left in a room, destroy it
 - Add debug flag on server
+- Add callback to all emits from client to make sure that it succeeds or fails

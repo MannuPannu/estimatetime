@@ -85,6 +85,23 @@ Lobby.prototype.revealVotes = function(roomUrl){
     }
 }
 
+Lobby.prototype.resetVotes = function(roomUrl){
+    var room = this.rooms[roomUrl];
+
+    if(room){
+      room.voteConnections.forEach(function(vc) { vc.voteValue = -1;});
+
+      for(var i = 0; i < room.voteConnections.length; i++){
+        room.voteConnections[i].voted = false;
+        room.voteConnections[i].voteValue = -1;
+      }
+
+      return true;
+    }
+
+    return false;
+}
+
 Lobby.prototype.roomExist = function(roomUrl){
   if(this.rooms[roomUrl]){
     return true;
@@ -115,7 +132,7 @@ Lobby.prototype.getVoteConnections = function(roomUrl) {
       return room.voteConnections;
     }
     else{ //Remove vote time info
-      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return {socketId: v.socketId, votedValue: -1, voted: v.voted }; });
+      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return {socketId: v.socketId, voteValue: -1, voted: v.voted }; });
       return voteConnectionsWithRemovedVotes;
     }
   }

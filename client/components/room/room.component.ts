@@ -30,9 +30,9 @@ export class RoomComponent implements OnActivate {
       that.roomId = roomUrl;
 
       this._socketService.onVoteUpdate(function(voteConnections) {
-        debugger;
         that.voteConnections = voteConnections;
       });
+
 
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));
   }
@@ -45,6 +45,10 @@ export class RoomComponent implements OnActivate {
     else {
       this._router.navigate(['/createroom']);
     }
+  }
+
+  resetVotes() {
+    this._socketService.resetVotes(this.roomId);
   }
 
   leaveRoom(){

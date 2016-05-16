@@ -80,6 +80,17 @@ io.on('connection', function (socket) {
     io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
   });
 
+  socket.on('reset votes', function(data) {
+    var result = lobby.resetVotes(data.roomUrl);
+
+    if(result) {
+      console.log("User has reset votes in room " + data.roomUrl);
+
+      io.in(data.roomUrl).emit('reset votes');
+      io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
+    }
+  });
+
   socket.on('reveal', function(data){
     lobby.revealVotes(data.roomUrl);
     io.in(data.roomUrl).emit('reveal', {voteConnections: lobby.getVoteConnections(data.roomUrl)});

@@ -18,7 +18,15 @@ export class VotingAreaComponent {
   selectedCard: Card;
   cardsVisible = true;
 
-  constructor(private _socketService: SocketService){}
+  constructor(private _socketService: SocketService){
+    var that = this;
+
+    this._socketService.onResetVotes(function() {
+      that.cards.forEach(card => {
+        card.selected = false;
+      });
+    });
+  }
 
   toggleCardVisibility(){
     this.cardsVisible = !this.cardsVisible;
@@ -33,8 +41,6 @@ export class VotingAreaComponent {
     //Toggle selection
     card.selected = true;
     this.selectedTime = card.timeInHours;
-
-    this.selectedCard = card;
 
     //Emit votes to other clients
     this._socketService.vote(this.selectedTime, this.roomUrl);

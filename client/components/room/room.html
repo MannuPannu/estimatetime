@@ -1,5 +1,11 @@
 <h2>You are in room {{ roomId }} ({{ isAdmin ? 'Admin' : 'Voter'}}).</h2>
+
 <button (click)="leaveRoom()">Leave room</button>
 <votingarea [cards]="cards" [roomUrl]="roomId"></votingarea>
-
 <voting-results-area [voteConnections]="voteConnections"></voting-results-area>
+
+<br />
+<div *ngIf="isAdmin">
+  <button (click)="resetVotes()">Reset votes</button>
+  <button (click)="revealVotes()">Reveal  votes</button>
+</div>

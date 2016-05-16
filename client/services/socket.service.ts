@@ -41,7 +41,17 @@ export class SocketService {
       });
     }
 
+    onResetVotes(callback: Function){
+      this.socket.on('reset votes', function(data) {
+        callback()
+      });
+    }
+
     vote(timeInHours: string, roomUrl: string) {
         this.socket.emit('vote', { timeInHours: timeInHours, roomUrl: roomUrl});
+    }
+
+    resetVotes(roomUrl: string) {
+        this.socket.emit('reset votes', { roomUrl: roomUrl});
     }
 }
