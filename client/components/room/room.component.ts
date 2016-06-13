@@ -51,6 +51,10 @@ export class RoomComponent implements OnActivate {
     this._socketService.resetVotes(this.roomId);
   }
 
+  revealVotes() {
+    this._socketService.revealVotes(this.roomId);
+  }
+
   leaveRoom(){
     var that = this;
     this._socketService.leaveRoom(this.roomId).then(function(result) {

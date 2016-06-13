@@ -96,7 +96,7 @@ io.on('connection', function (socket) {
 
   socket.on('reveal', function(data){
     lobby.revealVotes(data.roomUrl);
-    io.in(data.roomUrl).emit('reveal', {voteConnections: lobby.getVoteConnections(data.roomUrl)});
+    io.in(data.roomUrl).emit('vote connections update', { voteConnections: lobby.getVoteConnections(data.roomUrl) });
   });
 
   socket.on('disconnect', function() {

@@ -11,9 +11,6 @@ Uses Angular 2, Nodejs/express with socketio
 
 *** TODO ***
 - Store admin info in session variable
-
-- Add reveal option to server
-- Add force reveal button for admin
 - Add option to be a voter or skip it as admin
 
 - When there are no members left in a room, destroy it (after a certian time?)

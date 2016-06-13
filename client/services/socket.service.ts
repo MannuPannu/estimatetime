@@ -51,6 +51,10 @@ export class SocketService {
         this.socket.emit('vote', { timeInHours: timeInHours, roomUrl: roomUrl});
     }
 
+    revealVotes(roomUrl: string) {
+      this.socket.emit('reveal', { roomUrl: roomUrl});
+    }
+
     resetVotes(roomUrl: string) {
         this.socket.emit('reset votes', { roomUrl: roomUrl});
     }
