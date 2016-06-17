@@ -1,17 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import { OnActivate, Router, RouteSegment } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
+import {CookieService} from 'angular2-cookie/core';
 
 import {VotingAreaComponent} from '../votingarea/votingarea.component';
 import {VotingResultsAreaComponent} from '../votingresultsarea/votingresultsarea.component';
 import {CardsService} from '../../services/cards.service';
 import {Card} from '../../classes/Card';
+import {CookieInfo} from '../../classes/CookieInfo';
 
 @Component({
     selector: 'room',
     templateUrl: 'client/components/room/room.html',
     directives: [VotingAreaComponent, VotingResultsAreaComponent],
-    providers: [CardsService]
+    providers: [CardsService, CookieService]
 })
 export class RoomComponent implements OnActivate {
   cards: Card[];
@@ -21,7 +23,8 @@ export class RoomComponent implements OnActivate {
 
   constructor(private _cards: CardsService,
               private _router: Router,
-              private _socketService: SocketService){}
+              private _socketService: SocketService,
+              private _cookieService: CookieService){}
 
   routerOnActivate(curr: RouteSegment): void {
       var that = this;
@@ -40,7 +43,13 @@ export class RoomComponent implements OnActivate {
   afterJoin(result, roomUrl){
     if(result.joinSucceeded){
       this.cards = this._cards.getCards();
-      this.isAdmin = result.isAdmin;
+
+      let isAdminCookie: CookieInfo = new CookieInfo(this._cookieService.getObject("isAdmin"));
+
+      this.isAdmin = result.isAdmin
+          || (isAdminCookie.isAdmin && isAdminCookie.roomUrl === roomUrl);
+
+      this._cookieService.putObject("isAdmin", { isAdmin: this.isAdmin, roomUrl: roomUrl });
     }
     else {
       this._router.navigate(['/createroom']);
