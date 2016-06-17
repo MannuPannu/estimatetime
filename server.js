@@ -9,7 +9,11 @@ var io = require('socket.io').listen(server);
 var lobbyClass = require('./server/lib/lobby.js');
 var lobby = new lobbyClass.Lobby(io);
 
-server.listen(8000);
+var portNumber = 8000;
+
+server.listen(portNumber);
+
+console.log("Server listening on port " + portNumber);
 
 io.set("origins", "*:*");
 
