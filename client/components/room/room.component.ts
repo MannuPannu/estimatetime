@@ -44,10 +44,16 @@ export class RoomComponent implements OnActivate {
     if(result.joinSucceeded){
       this.cards = this._cards.getCards();
 
-      let isAdminCookie: CookieInfo = new CookieInfo(this._cookieService.getObject("isAdmin"));
+      var cookieObj = this._cookieService.getObject("isAdmin");
+
+      let isAdminCookie: CookieInfo = null;
+
+      if(cookieObj) {
+        isAdminCookie = new CookieInfo(cookieObj);
+      }
 
       this.isAdmin = result.isAdmin
-          || (isAdminCookie.isAdmin && isAdminCookie.roomUrl === roomUrl);
+          || (isAdminCookie !== null && isAdminCookie.isAdmin && isAdminCookie.roomUrl === roomUrl);
 
       this._cookieService.putObject("isAdmin", { isAdmin: this.isAdmin, roomUrl: roomUrl });
     }
