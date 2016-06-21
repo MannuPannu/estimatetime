@@ -36,7 +36,6 @@ export class RoomComponent implements OnActivate {
         that.voteConnections = voteConnections;
       });
 
-
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));
   }
 

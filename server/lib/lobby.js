@@ -27,7 +27,7 @@ Lobby.prototype.joinRoom = function(roomUrl, socket) {
 
   if(room){
     socket.join(roomUrl);
-    room.voteConnections.push({socketId: socket.id, voteValue: -1, voted: false } );
+    room.voteConnections.push(new RoomClass.User(socket.id, true));
 
     return true;
   }
@@ -43,7 +43,7 @@ Lobby.prototype.leaveRoom = function(roomUrl, socket) {
   if(room){
     socket.leave(roomUrl);
     room.voteConnections = room.voteConnections.filter(function(e){
-                              return e.socketId !== socket.id;
+                              return e.getSocketId() !== socket.id;
                             });
 
     return true;
@@ -61,17 +61,17 @@ Lobby.prototype.vote = function(timeInHours, roomUrl, socket){
 
   if(room && !room.revealVotes){
     for(var i = 0; i < room.voteConnections.length; i++){
-      var voteConnection = room.voteConnections[i];
+      var user = room.voteConnections[i];
 
-      if(voteConnection.socketId === socket.id){
-        voteConnection.voteValue = timeInHours;
-        voteConnection.voted = true;
+      if(user.getSocketId() === socket.id){
+        user.vote(timeInHours);
+
         voteResult = true;
         break;
       }
     }
 
-    if(_.every(room.voteConnections, function(e) { return e.voted === true; }))
+    if(_.every(room.voteConnections, function(e) { return e.hasVoted() === true; }))
     {
       console.log("Everyone has voted, reveal room");
       this.revealVotes(roomUrl);
@@ -94,12 +94,12 @@ Lobby.prototype.resetVotes = function(roomUrl){
     var room = this.rooms[roomUrl];
 
     if(room){
-      room.voteConnections.forEach(function(vc) { vc.voteValue = -1;});
+      room.voteConnections.forEach(function(vc) { vc.resetVote()});
 
-      for(var i = 0; i < room.voteConnections.length; i++){
-        room.voteConnections[i].voted = false;
-        room.voteConnections[i].voteValue = -1;
-      }
+      // for(var i = 0; i < room.voteConnections.length; i++){
+      //   room.voteConnections[i].voted = false;
+      //   room.voteConnections[i].voteValue = -1;
+      // }
 
       room.revealVotes = false;
 
@@ -130,16 +130,18 @@ Lobby.prototype.isAdminForRoom = function(roomUrl, socket){
   }
 }
 
+//Todo: Rewrite this to send back voteconnections to server
 Lobby.prototype.getVoteConnections = function(roomUrl) {
   var room = this.rooms[roomUrl];
 
   if(room) {
     if(room.revealVotes){
       console.log(room.voteConnections);
-      return room.voteConnections;
+      return _.map(room.voteConnections, function(v) { return { socketId: v.getSocketId(), voteValue: v.getVoteValue(), voted: v.hasVoted() }; });
     }
     else{ //Remove vote time info
-      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return {socketId: v.socketId, voteValue: -1, voted: v.voted }; });
+      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return { socketId: v.getSocketId(), voteValue: -1, voted: v.hasVoted() }; });
+      console.log(voteConnectionsWithRemovedVotes);
       return voteConnectionsWithRemovedVotes;
     }
   }

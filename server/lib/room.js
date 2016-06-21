@@ -1,16 +1,45 @@
 var _ = require('underscore')._;
 var util = require('util');
 
+var User = function(socketId, voter) {
+
+  var that = this;
+  that.socketId = socketId;
+  that.voteValue = -1;
+  that.voted = false;
+
+  that.voter = voter;
+
+  return {
+    vote: function(voteValue){
+      that.voteValue = voteValue;
+      that.voted = true;
+    },
+    resetVote: function(){
+      that.voteValue = -1;
+      that.voted = false;
+    },
+    setIsVoter: function(isVoter){
+      that.voter = isVoter;
+    },
+    getSocketId: function(){
+      return that.socketId;
+    },
+    getVoteValue: function(){
+      return that.voteValue;
+    },
+    hasVoted: function() {
+      return that.voted;
+    }
+  }
+};
+
 var Room = function(socket, roomUrl) {
   this.roomUrl = roomUrl;
   this.adminId = socket.id;
-  this.voteConnections = [];
+  this.voteConnections = []; //List of User, change to typescript later
   this.revealVotes = false;
 };
-
-// Room.prototype.getClientCount = function() {
-//   return _.filter(this.connections, function(c) { return c.socketId }).length;
-// }
 
 function calcTime(offset) {
   // create Date object for current location
@@ -34,3 +63,4 @@ Room.prototype.isAdmin = function(socketId){
 }
 
 exports.Room = Room;
+exports.User = User;
