@@ -90,16 +90,28 @@ Lobby.prototype.revealVotes = function(roomUrl){
     }
 }
 
+Lobby.prototype.toggleVoter = function(roomUrl, socketId){
+    var isVoter = true;
+    var room = this.rooms[roomUrl];
+
+    for(var i = 0; i < room.voteConnections.length; i++){
+      var user = room.voteConnections[i];
+
+      if(user.getSocketId() === socketId){
+        user.toggleVoter();
+
+        isVoter = user.isVoter();
+      }
+    }
+
+    return isVoter;
+};
+
 Lobby.prototype.resetVotes = function(roomUrl){
     var room = this.rooms[roomUrl];
 
     if(room){
       room.voteConnections.forEach(function(vc) { vc.resetVote()});
-
-      // for(var i = 0; i < room.voteConnections.length; i++){
-      //   room.voteConnections[i].voted = false;
-      //   room.voteConnections[i].voteValue = -1;
-      // }
 
       room.revealVotes = false;
 
@@ -137,10 +149,10 @@ Lobby.prototype.getVoteConnections = function(roomUrl) {
   if(room) {
     if(room.revealVotes){
       console.log(room.voteConnections);
-      return _.map(room.voteConnections, function(v) { return { socketId: v.getSocketId(), voteValue: v.getVoteValue(), voted: v.hasVoted() }; });
+      return _.map(room.voteConnections, function(user) { return user.getDataForClient(true); });
     }
     else{ //Remove vote time info
-      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(v) { return { socketId: v.getSocketId(), voteValue: -1, voted: v.hasVoted() }; });
+      var voteConnectionsWithRemovedVotes = _.map(room.voteConnections, function(user) { return user.getDataForClient(false)  });
       console.log(voteConnectionsWithRemovedVotes);
       return voteConnectionsWithRemovedVotes;
     }

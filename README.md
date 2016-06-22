@@ -10,9 +10,7 @@ Uses Angular 2, Nodejs/express with socketio
 4. Goto http://localhost:8000
 
 *** TODO ***
-
-- Rewrite voteConnections, add User function class!
-- Add button so admin can skip being a voter
+- Disable cards when not a voter
 - When admin resets his card are not reset
 - Fix bug where cards are undefined
 - When there are no members left in a room, destroy it (after a certian time?)

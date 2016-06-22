@@ -6,5 +6,6 @@
 
 <br />
 <div *ngIf="isAdmin">
+  <button (click)="toggleVoter()">{{ voter ? "You are a voter" : "You are not a voter" }}</button>
   <button (click)="resetVotes()">Reset votes</button>
 </div>

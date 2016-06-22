@@ -51,6 +51,13 @@ export class SocketService {
         this.socket.emit('vote', { timeInHours: timeInHours, roomUrl: roomUrl});
     }
 
+    toggleVoter(roomUrl: string) {
+      return new Promise<boolean>(resolve =>
+        this.socket.emit('toggle voter', { roomUrl: roomUrl }, function(result) {
+          resolve(result);
+        }));
+    }
+
     revealVotes(roomUrl: string) {
       this.socket.emit('reveal', { roomUrl: roomUrl});
     }

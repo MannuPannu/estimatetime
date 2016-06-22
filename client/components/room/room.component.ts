@@ -20,6 +20,7 @@ export class RoomComponent implements OnActivate {
   voteConnections: {};
   roomId: string;
   isAdmin: boolean;
+  voter: boolean;
 
   constructor(private _cards: CardsService,
               private _router: Router,
@@ -41,6 +42,8 @@ export class RoomComponent implements OnActivate {
 
   afterJoin(result, roomUrl){
     if(result.joinSucceeded){
+
+      this.voter = true;
       this.cards = this._cards.getCards();
 
       var cookieObj = this._cookieService.getObject("isAdmin");
@@ -63,6 +66,10 @@ export class RoomComponent implements OnActivate {
 
   resetVotes() {
     this._socketService.resetVotes(this.roomId);
+  }
+
+  toggleVoter() {
+    this._socketService.toggleVoter(this.roomId).then(result => this.voter = result);
   }
 
   revealVotes() {

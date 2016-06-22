@@ -30,6 +30,15 @@ var User = function(socketId, voter) {
     },
     hasVoted: function() {
       return that.voted;
+    },
+    toggleVoter: function(){
+      that.voter = !that.voter;
+    },
+    isVoter: function(){
+      return that.voter;
+    },
+    getDataForClient: function(showVoteValue){
+       return { socketId: that.socketId, voteValue: (showVoteValue ? that.voteValue : -1), voted: that.voted, voter: that.voter };
     }
   }
 };
