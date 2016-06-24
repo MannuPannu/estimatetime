@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Routes, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router';
-import {CreateRoomComponent} from '../createroom/createroom.component'
+import { CreateRoomComponent } from '../createroom/createroom.component'
 import {RoomComponent} from '../room/room.component'
 import { SocketService } from '../../services/socket.service';
 
