@@ -29,6 +29,7 @@ export class RoomComponent implements OnActivate {
 
   routerOnActivate(curr: RouteSegment): void {
       var that = this;
+      this.cards = this._cards.getCards();
 
       var roomUrl = curr.getParam('id');
       that.roomId = roomUrl;
@@ -44,7 +45,6 @@ export class RoomComponent implements OnActivate {
     if(result.joinSucceeded){
 
       this.voter = true;
-      this.cards = this._cards.getCards();
 
       var cookieObj = this._cookieService.getObject("isAdmin");
 

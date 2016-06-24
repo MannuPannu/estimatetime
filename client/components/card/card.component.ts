@@ -7,16 +7,16 @@ import { Card } from '../../classes/Card'
   styleUrls: ['client/components/card/card.css'],
 })
 export class CardComponent {
-  notVoted
-
   @Input()
     card: Card;
+  @Input()
+    enabled: boolean;
 
   @Output()
     cardClick = new EventEmitter();
 
   onClick() {
-    if(this.card.timeInHours !== ''){
+    if(this.card.timeInHours !== '' && this.enabled){
       this.cardClick.emit(this.card);
     }
   }

@@ -9,8 +9,7 @@
   line-height: 4em;
 }
 
-
-.card:hover {
+.card.enabled:hover {
   background-color: white;
   cursor: pointer;
 }
@@ -20,4 +19,16 @@
   border: 1px solid green;
   background-color: grey;
   color: white;
+}
+
+.card.selected:hover {
+  border-color: green;
+  border: 1px solid green;
+  background-color: grey;
+  color: white;
+}
+
+.card.disabled {
+  opacity: 0.3;
+  cursor: default;
 }

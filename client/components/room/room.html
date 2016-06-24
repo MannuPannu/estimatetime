@@ -1,7 +1,8 @@
-<h2>You are in room {{ roomId }} ({{ isAdmin ? 'Admin' : 'Voter'}}).</h2>
-
+<h2>You are in room {{ roomId }} ({{ isAdmin ? 'Admin' : 'Voter'}}).
 <button (click)="leaveRoom()">Leave room</button>
-<votingarea [cards]="cards" [roomUrl]="roomId"></votingarea>
+</h2>
+
+<votingarea [cards]="cards" [roomUrl]="roomId" [cardsEnabled]="voter"></votingarea>
 <voting-results-area [voteConnections]="voteConnections"></voting-results-area>
 
 <br />
