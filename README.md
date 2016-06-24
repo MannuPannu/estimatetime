@@ -10,7 +10,5 @@ Uses Angular 2, Nodejs/express with socketio
 4. Goto http://localhost:8000
 
 *** TODO ***
-- Disable cards when not a voter
-- When admin resets his card are not reset
-- Fix bug where cards are undefined
+- When admin is not a voter, remove him from voting results area
 - When there are no members left in a room, destroy it (after a certian time?)
