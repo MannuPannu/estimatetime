@@ -3,7 +3,11 @@
 </h2>
 
 <votingarea [cards]="cards" [roomUrl]="roomId" [cardsEnabled]="voter"></votingarea>
-<voting-results-area [voteConnections]="voteConnections"></voting-results-area>
+<voting-results-area [voteSlots]="voteSlots"></voting-results-area>
+
+<div *ngFor="let voteConnection of voteConnections">
+  {{ voteConnection | json }}
+</div>
 
 <br />
 <div *ngIf="isAdmin">

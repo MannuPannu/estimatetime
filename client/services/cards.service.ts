@@ -29,18 +29,4 @@ export class CardsService {
 
     return cards;
   }
-
-  getVotingInfo(voteConnections){
-    let voteSlots:Card[] = [];
-
-    for(var i = 0; i < voteConnections.length; i++) {
-
-      var card = new Card("");
-      card.cardVotedHidden = voteConnections[i].voteValue > -1;
-      card.cardVoted = voteConnections[i].voted;
-
-      voteSlots.push(card);
-    }
-    return voteConnections;
-  }
 }

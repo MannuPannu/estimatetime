@@ -1,4 +1,4 @@
-<div [ngClass]="{ card: card.selectable, voteSlot: !card.selectable, disabled: !enabled, enabled: enabled }"
+<div class="card" [ngClass]="{ disabled: !enabled, enabled: enabled }"
      [class.selected]="card.selected" (click)="onClick()">
-    {{ card.selectable ? card.timeInHours : ' ' }}
+    {{ card.timeInHours }}
 </div>

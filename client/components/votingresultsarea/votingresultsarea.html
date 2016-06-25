@@ -1,6 +1,6 @@
 Voting area
 <div style="clear: both">
-  <div *ngFor="let voteConnection of voteConnections">
-    {{voteConnection | json}}
+  <div *ngFor="let voteSlot of voteSlots">
+      <voteslot [voteSlot]="voteSlot"></voteslot>
   </div>
 </div>

@@ -7,6 +7,7 @@ import {VotingAreaComponent} from '../votingarea/votingarea.component';
 import {VotingResultsAreaComponent} from '../votingresultsarea/votingresultsarea.component';
 import {CardsService} from '../../services/cards.service';
 import {Card} from '../../classes/Card';
+import {VoteSlot} from '../../classes/VoteSlot';
 import {CookieInfo} from '../../classes/CookieInfo';
 
 @Component({
@@ -17,6 +18,7 @@ import {CookieInfo} from '../../classes/CookieInfo';
 })
 export class RoomComponent implements OnActivate {
   cards: Card[];
+  voteSlots: VoteSlot[];
   voteConnections: {};
   roomId: string;
   isAdmin: boolean;
@@ -25,7 +27,9 @@ export class RoomComponent implements OnActivate {
   constructor(private _cards: CardsService,
               private _router: Router,
               private _socketService: SocketService,
-              private _cookieService: CookieService){}
+              private _cookieService: CookieService){
+                this.voteSlots = [];
+              }
 
   routerOnActivate(curr: RouteSegment): void {
       var that = this;
@@ -35,7 +39,21 @@ export class RoomComponent implements OnActivate {
       that.roomId = roomUrl;
 
       this._socketService.onVoteUpdate(function(voteConnections) {
-        that.voteConnections = voteConnections;
+        that.voteConnections = voteConnections; //todo: remove this later
+
+        that.voteSlots = [];
+
+        var allHasVoted = false;
+        if(voteConnections.filter(v => {
+          return v.voted !== true;
+        }).length === 0) {
+          allHasVoted = true;
+        }
+
+        voteConnections.forEach(v => {
+          that.voteSlots.push(new VoteSlot(v.voteValue, allHasVoted));
+        });
+
       });
 
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));

@@ -38,7 +38,6 @@ export class VotingAreaComponent implements OnInit {
   }
 
   cardClicked(card) {
-
     this.cards.forEach(card => {
       card.selected = false;
     });
