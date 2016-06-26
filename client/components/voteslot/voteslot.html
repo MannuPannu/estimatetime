@@ -1,3 +1,8 @@
-<div class="voteSlot">
-    {{ voteSlot.showValue ? voteSlot.timeInHours : 'x' }}
+<div class="voteSlot" [ngClass]="{ voted: voteSlot.voted }">
+    <span *ngIf="voteSlot.voted">
+      {{ voteSlot.showValue ? voteSlot.timeInHours : 'x' }}
+    </span>
+    <span *ngIf="!voteSlot.voted">
+      {{ voteSlot.showValue ? voteSlot.timeInHours : ' ' }}
+    </span>
 </div>

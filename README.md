@@ -6,11 +6,11 @@ Uses Angular 2, Nodejs/express with socketio
 
 1. Clone repo
 2. npm install
-3. tsd install
-4. npm start
-5. Goto http://localhost:8000
+3. npm start
+4. Goto http://localhost:8000
 
 *** TODO ***
-- Create layout for voting area
+- Sort voted results to be on the left side
+- Handle vote results when admin toggles being a voter or not
 - When admin is not a voter, remove him from voting results area
 - When there are no members left in a room, destroy it (after a certian time?)

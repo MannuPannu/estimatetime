@@ -2,15 +2,14 @@
 <button (click)="leaveRoom()">Leave room</button>
 </h2>
 
-<votingarea [cards]="cards" [roomUrl]="roomId" [cardsEnabled]="voter"></votingarea>
-<voting-results-area [voteSlots]="voteSlots"></voting-results-area>
-
-<div *ngFor="let voteConnection of voteConnections">
-  {{ voteConnection | json }}
-</div>
-
-<br />
 <div *ngIf="isAdmin">
   <button (click)="toggleVoter()">{{ voter ? "You are a voter" : "You are not a voter" }}</button>
   <button (click)="resetVotes()">Reset votes</button>
 </div>
+
+<votingarea [cards]="cards" [roomUrl]="roomId" [cardsEnabled]="voter"></votingarea>
+<voting-results-area [voteSlots]="voteSlots"></voting-results-area>
+
+<!-- <div *ngFor="let voteConnection of voteConnections">
+  {{ voteConnection | json }}
+</div> -->

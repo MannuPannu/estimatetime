@@ -3,8 +3,12 @@
   border-color: grey;
   height: 4em;
   width: 2.5em;
-  background-color: lightgrey;
+  background-color: white;
   text-align: center;
   font-size: 2em;
   line-height: 4em;
+}
+
+.voted {
+  background-color: lightgrey;
 }
