@@ -12,3 +12,4 @@ client/**/*.js
 !karma*.js
 !protractor*.js
 !wallaby.js
+*.log

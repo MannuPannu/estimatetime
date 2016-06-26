@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import { OnActivate, Router, RouteSegment } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 import {CookieService} from 'angular2-cookie/core';
-
 import {VotingAreaComponent} from '../votingarea/votingarea.component';
 import {VotingResultsAreaComponent} from '../votingresultsarea/votingresultsarea.component';
 import {CardsService} from '../../services/cards.service';
 import {Card} from '../../classes/Card';
 import {VoteSlot} from '../../classes/VoteSlot';
 import {CookieInfo} from '../../classes/CookieInfo';
+
+declare var _: any;
 
 @Component({
     selector: 'room',
@@ -44,7 +45,7 @@ export class RoomComponent implements OnActivate {
         that.voteSlots = [];
 
         var allHasVoted = false;
-        if(voteConnections.filter(v => {
+          if(voteConnections.filter(v => {
           return v.voted !== true;
         }).length === 0) {
           allHasVoted = true;
@@ -53,6 +54,23 @@ export class RoomComponent implements OnActivate {
         voteConnections.forEach(v => {
           that.voteSlots.push(new VoteSlot(v.voteValue, allHasVoted, v.voted, v.voter));
         });
+
+        if(allHasVoted) {
+          _.shuffle(that.voteSlots);
+        }
+
+        that.voteSlots.sort(function(a, b) {
+          if(a.voted) {
+            return -1;
+          }
+
+          if(!a.voted){
+            return 1;
+          }
+
+          return 0;
+        });
+
       });
 
       that._socketService.joinRoom(roomUrl).then(result => that.afterJoin(result, roomUrl));
